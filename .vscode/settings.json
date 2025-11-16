@@ -1,7 +1,11 @@
 {
     "python.testing.pytestArgs": [
-        "Tests"
+        "POM/Tests",
+        "--junitxml=reports/results.xml"
+        
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "python.testing.autoTestDiscoverOnSaveEnabled": true,
+    "testing.tree.indent": 0
 }
