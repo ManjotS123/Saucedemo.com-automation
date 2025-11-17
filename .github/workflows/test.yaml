@@ -1,6 +1,6 @@
 name: Saucedemo.com-Tests
 
-on: [push, pull_requests]
+on: [push, pull_request]
 
 jobs:
   run-tests:
