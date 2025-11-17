@@ -92,8 +92,8 @@ def pytest_runtest_makereport(item, call):
             )
 
             try:
-                page.wait_for_load_state('networkidle', timeout=3000)
-                page.screenshot(path=screenshot_path, timeout=3000, wait_for =0)
+                page.wait_for_load_state('networkidle')
+                page.screenshot(path=screenshot_path, full_page=True)
             except Exception as e:
                 print(f"[HOOK] Screenshot failed: {e}")
 
