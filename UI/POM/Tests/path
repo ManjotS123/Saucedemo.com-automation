@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="7" skipped="0" tests="24" time="350.655" timestamp="2025-11-13T16:56:45.241877+01:00" hostname="LAPTOP-O20GS0K0"><testcase classname="test_cart" name="test_cart" time="4.414" /><testcase classname="test_cart" name="test_checkout_button" time="4.054"><failure message="AttributeError: 'Page' object has no attribute 'skip'">cart = &lt;Page url='https://www.saucedemo.com/cart.html'&gt;
+
+    def test_checkout_button(cart):
+        page = cart
+        cart_items = page.locator('[data-test="inventory-item-name"]')
+        item_count = cart_items.count()
+    
+        if item_count &lt; 1 :
+&gt;           page.skip("Cart is empty, needs at least one item to checkout")
+            ^^^^^^^^^
+E           AttributeError: 'Page' object has no attribute 'skip'
+
+test_cart.py:22: AttributeError</failure></testcase><testcase classname="test_cart" name="test_continueshopping_button" time="9.925" /><testcase classname="test_checkout" name="test_checkout" time="4.498"><failure message="AssertionError: checkout not successful&#10;assert 'https://www.saucedemo.com/checkout-step-two.html' in 'https://www.saucedemo.com/checkout-step-one.html'&#10; +  where 'https://www.saucedemo.com/checkout-step-one.html' = &lt;Page url='https://www.saucedemo.com/checkout-step-one.html'&gt;.url">checkout = &lt;Page url='https://www.saucedemo.com/checkout-step-one.html'&gt;
+
+    def test_checkout(checkout):
+        page = checkout
+&gt;       assert 'https://www.saucedemo.com/checkout-step-two.html' in page.url, 'checkout not successful'
+E       AssertionError: checkout not successful
+E       assert 'https://www.saucedemo.com/checkout-step-two.html' in 'https://www.saucedemo.com/checkout-step-one.html'
+E        +  where 'https://www.saucedemo.com/checkout-step-one.html' = &lt;Page url='https://www.saucedemo.com/checkout-step-one.html'&gt;.url
+
+test_checkout.py:22: AssertionError</failure></testcase><testcase classname="test_checkout" name="test_cancel" time="34.405"><failure message="playwright._impl._errors.TimeoutError: Page.click: Timeout 30000ms exceeded.&#10;Call log:&#10;  - waiting for locator(&quot;[data-test=\&quot;cancel\&quot;]&quot;)">cart = &lt;Page url='https://www.saucedemo.com/cart.html'&gt;
+
+    def test_cancel(cart):
+        page = cart
+&gt;       page.click('[data-test="cancel"]')
+
+test_checkout.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\sync_api\_generated.py:9927: in click
+    self._sync(
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_page.py:858: in click
+    return await self._main_frame.click(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_frame.py:549: in click
+    await self._channel.send("click", self._timeout, locals_to_params(locals()))
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;playwright._impl._connection.Connection object at 0x00000169BA6E5A70&gt;, cb = &lt;function Channel.send.&lt;locals&gt;.&lt;lambda&gt; at 0x00000169BA6E9A80&gt;, is_internal = False
+title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -&gt; Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+&gt;           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Page.click: Timeout 30000ms exceeded.
+E           Call log:
+E             - waiting for locator("[data-test=\"cancel\"]")
+
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_connection.py:558: TimeoutError</failure></testcase><testcase classname="test_checkout" name="test_checkout_two" time="40.212"><failure message="playwright._impl._errors.TimeoutError: Page.click: Timeout 30000ms exceeded.&#10;Call log:&#10;  - waiting for locator(&quot;[data-test=\&quot;finish\&quot;]&quot;)">checkout = &lt;Page url='https://www.saucedemo.com/checkout-step-one.html'&gt;
+
+    def test_checkout_two(checkout):
+        page = checkout
+&gt;       page.click('[data-test="finish"]')
+
+test_checkout.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\sync_api\_generated.py:9927: in click
+    self._sync(
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_page.py:858: in click
+    return await self._main_frame.click(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_frame.py:549: in click
+    await self._channel.send("click", self._timeout, locals_to_params(locals()))
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;playwright._impl._connection.Connection object at 0x00000169BA763530&gt;, cb = &lt;function Channel.send.&lt;locals&gt;.&lt;lambda&gt; at 0x00000169BA71BCE0&gt;, is_internal = False
+title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -&gt; Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+&gt;           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Page.click: Timeout 30000ms exceeded.
+E           Call log:
+E             - waiting for locator("[data-test=\"finish\"]")
+
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_connection.py:558: TimeoutError</failure></testcase><testcase classname="test_checkout" name="test_checkout_complete" time="34.420"><failure message="playwright._impl._errors.TimeoutError: Page.click: Timeout 30000ms exceeded.&#10;Call log:&#10;  - waiting for locator(&quot;[data-test=\&quot;back-to-products\&quot;]&quot;)">checkout = &lt;Page url='https://www.saucedemo.com/checkout-step-one.html'&gt;
+
+    def test_checkout_complete(checkout):
+        page = checkout
+&gt;       page.click('[data-test="back-to-products"]')
+
+test_checkout.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\sync_api\_generated.py:9927: in click
+    self._sync(
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_page.py:858: in click
+    return await self._main_frame.click(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_frame.py:549: in click
+    await self._channel.send("click", self._timeout, locals_to_params(locals()))
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;playwright._impl._connection.Connection object at 0x00000169BA1BAF10&gt;, cb = &lt;function Channel.send.&lt;locals&gt;.&lt;lambda&gt; at 0x00000169BA638D60&gt;, is_internal = False
+title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -&gt; Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+&gt;           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Page.click: Timeout 30000ms exceeded.
+E           Call log:
+E             - waiting for locator("[data-test=\"back-to-products\"]")
+
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_connection.py:558: TimeoutError</failure></testcase><testcase classname="test_filters" name="test_menu_tabs" time="6.046" /><testcase classname="test_home_items" name="test_home_items[[data-test=&quot;add-to-cart-sauce-labs-backpack&quot;]]" time="7.913" /><testcase classname="test_home_items" name="test_home_items[[data-test=&quot;add-to-cart-sauce-labs-bike-light&quot;]]" time="4.318" /><testcase classname="test_home_items" name="test_home_items[[data-test=&quot;add-to-cart-sauce-labs-bolt-t-shirt&quot;]]" time="4.197" /><testcase classname="test_home_items" name="test_home_items[[data-test=&quot;add-to-cart-sauce-labs-fleece-jacket&quot;]]" time="8.402" /><testcase classname="test_home_items" name="test_home_items[[data-test=&quot;add-to-cart-sauce-labs-onesie&quot;]]" time="8.659" /><testcase classname="test_home_items" name="test_home_items[[data-test=&quot;add-to-cart-test.allthethings()-t-shirt-(red)&quot;]]" time="7.868" /><testcase classname="test_items" name="test_item1" time="4.474" /><testcase classname="test_items" name="test_item2" time="39.861"><failure message="playwright._impl._errors.TimeoutError: Page.screenshot: Timeout 30000ms exceeded.&#10;Call log:&#10;  - taking page screenshot&#10;  - waiting for fonts to load...&#10;  - fonts loaded">login = &lt;Page url='https://www.saucedemo.com/inventory-item.html?id=0'&gt;
+
+    def test_item2(login):
+        page = login
+        page.click('[data-test="item-0-title-link"]')
+        page.click('[data-test="add-to-cart"]')
+        cart = page.locator('[data-test="shopping-cart-badge"]')
+    
+&gt;       page.screenshot(path= "C:/Users/manjo/OneDrive/Desktop/gen_Test/Screenshots/items/item2.png" )
+
+test_items.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\sync_api\_generated.py:9784: in screenshot
+    self._sync(
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_page.py:818: in screenshot
+    encoded_binary = await self._channel.send(
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;playwright._impl._connection.Connection object at 0x00000169BC689250&gt;, cb = &lt;function Channel.send.&lt;locals&gt;.&lt;lambda&gt; at 0x00000169BC6FFE20&gt;, is_internal = False
+title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -&gt; Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+&gt;           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Page.screenshot: Timeout 30000ms exceeded.
+E           Call log:
+E             - taking page screenshot
+E             - waiting for fonts to load...
+E             - fonts loaded
+
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_connection.py:558: TimeoutError</failure></testcase><testcase classname="test_items" name="test_item3" time="4.402" /><testcase classname="test_items" name="test_item4" time="33.459" /><testcase classname="test_items" name="test_item5" time="4.423" /><testcase classname="test_items" name="test_item6" time="40.205"><failure message="playwright._impl._errors.TimeoutError: Page.screenshot: Timeout 30000ms exceeded.&#10;Call log:&#10;  - taking page screenshot&#10;  - waiting for fonts to load...&#10;  - fonts loaded">login = &lt;Page url='https://www.saucedemo.com/inventory-item.html?id=3'&gt;
+
+    def test_item6(login):
+        page = login
+        page.click('[data-test="item-3-title-link"]')
+        page.click('[data-test="add-to-cart"]')
+        cart = page.locator('[data-test="shopping-cart-badge"]')
+    
+    
+&gt;       page.screenshot(path= "C:/Users/manjo/OneDrive/Desktop/gen_Test/Screenshots/items/item6.png" )
+
+test_items.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\sync_api\_generated.py:9784: in screenshot
+    self._sync(
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_page.py:818: in screenshot
+    encoded_binary = await self._channel.send(
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;playwright._impl._connection.Connection object at 0x00000169BA713350&gt;, cb = &lt;function Channel.send.&lt;locals&gt;.&lt;lambda&gt; at 0x00000169BAA9DDA0&gt;, is_internal = False
+title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -&gt; Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+&gt;           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Page.screenshot: Timeout 30000ms exceeded.
+E           Call log:
+E             - taking page screenshot
+E             - waiting for fonts to load...
+E             - fonts loaded
+
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_connection.py:558: TimeoutError</failure></testcase><testcase classname="test_login" name="test_login" time="5.977" /><testcase classname="test_menu" name="test_menu_button" time="14.544" /><testcase classname="test_menu_tabs" name="test_menu_tabs" time="19.126" /><testcase classname="test_open_browser" name="test_open_browser" time="3.925" /></testsuite></testsuites>

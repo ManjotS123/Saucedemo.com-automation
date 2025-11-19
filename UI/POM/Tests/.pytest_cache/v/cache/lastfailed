@@ -1,0 +1,4 @@
+{
+  "test_filters.py::test_filters": true,
+  "test_checkout.py::test_checkout": true
+}
