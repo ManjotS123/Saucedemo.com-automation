@@ -1,6 +1,6 @@
 # Saucedemo.com Automation Test Framework
 
-Automation framework for **SauceDemo** built using **Playwright**,**Appium* and **Pytest**, fully integrated with CI pipelines and automated reporting.
+Automation framework for **SauceDemo** built using **Playwright**, **Appium** and **Pytest**, fully integrated with CI pipelines and automated reporting.
 
 ---
 
