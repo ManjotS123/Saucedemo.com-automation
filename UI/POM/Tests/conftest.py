@@ -11,7 +11,7 @@ from utils.random_generator import first_name, last_name, postal_code
 @pytest.fixture 
 def login():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=True)
         page = browser.new_page()
         
         login_page = Login_page(page)
