@@ -18,6 +18,7 @@ reports/
 **/reports/
 results.xml
 __pycache__/
+*__pycache__
 
 # Generated screenshots
 Screenshots/

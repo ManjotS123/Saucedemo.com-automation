@@ -1,11 +1,13 @@
-FROM mcr.microsoft.com/playwright/python:v1.30.0-focal
+FROM mcr.microsoft.com/playwright/python:v1.49.0-jammy
 
 WORKDIR /app
 
-COPY /UI/POM/Pages /app/Pages 
-COPY /UI/POM/Tests /app/Tests
-COPY /UI/POM/utils /app/utils
+COPY requirements.txt ./
+RUN python -m pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
-RUN python -m pip install --upgrade pip
-RUN pip install playwright pytest
-RUN playwright install
+COPY pytest.ini ./
+COPY UI ./UI
+
+# Run the UI suite by default; reports/screenshots land under /app.
+CMD ["python", "-m", "pytest", "UI/POM/Tests"]
