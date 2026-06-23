@@ -3,10 +3,11 @@ import os
 import re
 from pathlib import Path
 from playwright.sync_api import sync_playwright, Page
-from Pages.login import Login_page
+from Pages.login import LoginPage
 from Pages.cart import Cart
 from Pages.checkout import Checkout
 from utils.random_generator import first_name, last_name, postal_code
+from utils.config import HEADLESS
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 REPORTS_DIR = REPO_ROOT / "reports"
@@ -23,13 +24,15 @@ def pytest_configure(config):
 @pytest.fixture 
 def login():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(headless=HEADLESS)
         page = browser.new_page()
-        
-        login_page = Login_page(page)
+
+        login_page = LoginPage(page)
         login_page.login()
 
         yield page
+
+        browser.close()
 
 #cart page fixture
 @pytest.fixture

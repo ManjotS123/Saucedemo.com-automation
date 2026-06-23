@@ -1,3 +1,6 @@
+from utils.config import BASE_URL
+
+
 class Checkout:
     def __init__(self,page):
         self.page = page
@@ -9,9 +12,9 @@ class Checkout:
         self.continue_button = '[data-test="continue"]'
         self.finish_button = '[data-test="finish"]'
         self.back_to_home_button = '[data-test="back-to-products"]'
-        self.checkout_one_url = 'https://www.saucedemo.com/checkout-step-one.html'
-        self.checkout_two_url = 'https://www.saucedemo.com/checkout-step-two.html'
-        self.checkout_complete_url = 'https://www.saucedemo.com/checkout-complete.html'
+        self.checkout_one_url = f'{BASE_URL}/checkout-step-one.html'
+        self.checkout_two_url = f'{BASE_URL}/checkout-step-two.html'
+        self.checkout_complete_url = f'{BASE_URL}/checkout-complete.html'
 
     def  checkout_info(self,fname,lname,pcode )  :
         self.page.click(self.checkout_button)

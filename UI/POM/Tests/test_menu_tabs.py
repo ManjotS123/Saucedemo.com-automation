@@ -1,5 +1,4 @@
 import pytest
-from playwright.sync_api import sync_playwright 
 from Pages.menu_tabs import Menu_tabs
 from Pages.menu import Menu
 
