@@ -1,5 +1,4 @@
 import pytest
-from playwright.sync_api import sync_playwright 
 from utils.random_generator import first_name, last_name, postal_code
 from Pages.checkout import Checkout
 

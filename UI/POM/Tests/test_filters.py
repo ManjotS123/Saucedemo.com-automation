@@ -1,5 +1,4 @@
 import pytest
-from playwright.sync_api import sync_playwright 
 from Pages.filters import Filters
 
 def test_filters(login):

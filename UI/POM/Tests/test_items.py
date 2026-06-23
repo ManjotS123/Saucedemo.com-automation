@@ -1,5 +1,4 @@
 import pytest
-from playwright.sync_api import sync_playwright 
 from .conftest import item_selectors
 from Pages.items import Items
 
