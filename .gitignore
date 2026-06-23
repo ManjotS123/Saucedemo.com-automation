@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Node (should not be in a Python project, but guard against it)
+node_modules/
+package-lock.json
+
+# Pytest / test artifacts
+.pytest_cache/
+reports/
+**/reports/
+results.xml
+__pycache__/
+
+# Generated screenshots
+Screenshots/
+**/Screenshots/
+
+# IDE / OS
+.idea/
+*.swp
+.DS_Store
+.vscode/
