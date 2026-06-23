@@ -7,7 +7,7 @@ from Pages.login import LoginPage
 from Pages.cart import Cart
 from Pages.checkout import Checkout
 from utils.random_generator import first_name, last_name, postal_code
-from utils.config import HEADLESS
+from utils.config import HEADLESS, DEVICES
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 REPORTS_DIR = REPO_ROOT / "reports"
@@ -20,19 +20,35 @@ def pytest_configure(config):
     if not config.option.xmlpath:
         config.option.xmlpath = str(REPORTS_DIR / "results.xml")
 
-# Log in fixture
-@pytest.fixture 
-def login():
+# Browser fixture: parametrized across the desktop + mobile device matrix
+# defined in config.py. "desktop" uses a default context; any other name is
+# resolved through Playwright's built-in device descriptors for emulation.
+@pytest.fixture(params=DEVICES, ids=DEVICES)
+def browser_page(request):
+    device_name = request.param.strip()
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=HEADLESS)
-        page = browser.new_page()
 
-        login_page = LoginPage(page)
-        login_page.login()
+        if device_name.lower() == "desktop":
+            context = browser.new_context()
+        else:
+            context = browser.new_context(**p.devices[device_name])
 
-        yield page
+        page = context.new_page()
 
-        browser.close()
+        try:
+            yield page
+        finally:
+            context.close()
+            browser.close()
+
+# Log in fixture
+@pytest.fixture
+def login(browser_page):
+    page = browser_page
+    LoginPage(page).login()
+
+    yield page
 
 #cart page fixture
 @pytest.fixture
