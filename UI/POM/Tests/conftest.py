@@ -1,11 +1,23 @@
 import pytest
 import os
 import re
+from pathlib import Path
 from playwright.sync_api import sync_playwright, Page
 from Pages.login import Login_page
 from Pages.cart import Cart
 from Pages.checkout import Checkout
 from utils.random_generator import first_name, last_name, postal_code
+
+REPO_ROOT = Path(__file__).resolve().parents[3]
+REPORTS_DIR = REPO_ROOT / "reports"
+SCREENSHOTS_DIR = REPO_ROOT / "Screenshots" / "screenshots"
+
+
+@pytest.hookimpl(tryfirst=True)
+def pytest_configure(config):
+    REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+    if not config.option.xmlpath:
+        config.option.xmlpath = str(REPORTS_DIR / "results.xml")
 
 # Log in fixture
 @pytest.fixture 
@@ -86,17 +98,15 @@ def pytest_runtest_makereport(item, call):
                 break
 
         if page:
-            # Create screenshot folder
-            screenshot_dir = os.path.join("Screenshots", "screenshots")
-            os.makedirs(screenshot_dir, exist_ok=True)
-             
+            os.makedirs(SCREENSHOTS_DIR, exist_ok=True)
+
             status = "PASSED" if report.passed else "FAILED"
-            
+
             safe_test_name = sanitize_filename(item.name)
-            
+
             screenshot_path = os.path.join(
-                screenshot_dir,
-                f"{item.name}_{status}.png"
+                SCREENSHOTS_DIR,
+                f"{safe_test_name}_{status}.png"
             )
 
              
