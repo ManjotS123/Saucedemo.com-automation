@@ -1,9 +1,12 @@
+from playwright.async_api import expect
+
 from pages.checkout import Checkout
 
 
 async def test_checkout_one(checkout):
     page = checkout
     assert 'https://www.saucedemo.com/checkout-step-one.html' in page.url, 'checkout not successful'
+    await expect(page.locator('[data-test="title"]')).to_have_text("Checkout: Your Information")
 
 
 async def test_cancel(checkout):
@@ -12,6 +15,7 @@ async def test_cancel(checkout):
     await cancel.cancel_checkout()
 
     assert 'https://www.saucedemo.com/cart.html' in page.url, 'checkout not successful'
+    await expect(page.locator('[data-test="title"]')).to_have_text("Your Cart")
 
 
 async def test_checkout_two(checkout):
@@ -20,6 +24,7 @@ async def test_checkout_two(checkout):
     await step_two.continue_checkout()
 
     assert 'https://www.saucedemo.com/checkout-step-two.html' in page.url, 'checkout not successful'
+    await expect(page.locator('[data-test="title"]')).to_have_text("Checkout: Overview")
 
 
 async def test_checkout_complete(checkout):
@@ -29,6 +34,7 @@ async def test_checkout_complete(checkout):
     await complete.finish_checkout()
 
     assert 'https://www.saucedemo.com/checkout-complete.html' in page.url, 'checkout not successful'
+    await expect(page.locator('[data-test="complete-header"]')).to_have_text("Thank you for your order!")
 
 
 async def test_home_page(checkout):
@@ -39,3 +45,4 @@ async def test_home_page(checkout):
     await finish.home()
 
     assert 'https://www.saucedemo.com/inventory.html' in page.url, 'could not return to home page'
+    await expect(page.locator('[data-test="inventory-list"]')).to_be_visible()
