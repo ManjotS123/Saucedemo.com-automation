@@ -18,5 +18,3 @@ async def test_menu_tabs(login):
     await menu_tabs.click_inventory()
     await menu_tabs.click_resetappstate()
     await menu_tabs.click_logout()
-
-    await page.wait_for_timeout(3000)

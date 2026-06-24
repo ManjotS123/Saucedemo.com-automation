@@ -42,7 +42,7 @@ async def capture_screenshot(page, node):
     SCREENSHOTS_DIR.mkdir(parents=True, exist_ok=True)
     path = os.path.join(str(SCREENSHOTS_DIR), f"{sanitize_filename(node.name)}_{status}.png")
     try:
-        await page.wait_for_load_state("networkidle")
+        await page.wait_for_load_state("domcontentloaded")
         await page.screenshot(path=path, full_page=True)
     except Exception as e:
         print(f"[screenshot] failed: {e}")
