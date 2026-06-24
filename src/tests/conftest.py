@@ -6,10 +6,12 @@ import pytest
 from playwright.async_api import async_playwright
 
 from pages.login import LoginPage
+from pages.item_home import ItemHome
 from pages.cart import Cart
 from pages.checkout import Checkout
 from utils.random_generator import first_name, last_name, postal_code
 from utils.config import HEADLESS, DEVICES
+from utils.selectors import INVENTORY_ADD_TO_CART_SELECTORS
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 REPORTS_DIR = REPO_ROOT / "reports"
@@ -82,6 +84,8 @@ async def login(browser_page):
 @pytest.fixture
 async def cart(login):
     page = login
+    # Add a product so the cart is non-empty for downstream checkout steps.
+    await ItemHome(page).click_cart(INVENTORY_ADD_TO_CART_SELECTORS[0])
     await Cart(page).cart_button()
     yield page
 
