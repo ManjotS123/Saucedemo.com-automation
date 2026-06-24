@@ -27,7 +27,7 @@ jobs:
           playwright install --with-deps chromium
 
       - name: Run tests
-        run: python -m pytest UI/POM/Tests
+        run: python -m pytest src/tests
 
       - name: Upload test reports
         if: always()

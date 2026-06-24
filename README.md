@@ -13,7 +13,7 @@ cart, and checkout using the Page Object Model. Mobile coverage is provided by
 Playwright's built-in **device emulation**, so every test runs on a desktop context and a mobile viewport from a
 single codebase.
 
-- Built with **Playwright (Python)** and **Pytest**
+- Built with **Playwright (Python, async API)** and **Pytest** (`pytest-asyncio`)
 - **25 UI tests**, executed across **desktop and mobile chrome (Pixel 5)** 
 - Page Object Model for maintainable, reusable page logic
 - Environment-driven configuration (URL, credentials, headless, device matrix)
@@ -42,7 +42,7 @@ playwright install chromium
 pytest
 
 # Run a single test file
-pytest UI/POM/Tests/test_checkout.py
+pytest src/tests/test_checkout.py
 
 # Run only the desktop or mobile variant
 pytest -k "desktop"
@@ -52,7 +52,7 @@ pytest -k "Pixel 5"
 ## Configuration
 
 All settings are environment variables with sensible defaults (see
-`UI/POM/utils/config.py`):
+`src/utils/config.py`):
 
 | Variable               | Default                     | Description                                              |
 | ---------------------- | --------------------------- | -------------------------------------------------------- |
@@ -72,7 +72,7 @@ HEADLESS=false PLAYWRIGHT_DEVICES=desktop pytest
 PLAYWRIGHT_DEVICES="desktop,iPhone 13,iPad Mini" pytest
 
 # Test as the locked-out user
-SAUCEDEMO_USERNAME=locked_out_user pytest UI/POM/Tests/test_login.py
+SAUCEDEMO_USERNAME=locked_out_user pytest src/tests/test_login.py
 ```
 
 ## Docker
@@ -98,7 +98,7 @@ browsers preinstalled, and tests run headless by default.
 
 - Runs on `ubuntu-latest` with Python 3.11
 - Installs dependencies from `requirements.txt` and Playwright browsers
-- Executes `pytest UI/POM/Tests`
+- Executes `pytest src/tests`
 - Uploads `reports/results.xml` and `Screenshots/` as build artifacts (even on failure)
 
 ## License
